@@ -1,7 +1,4 @@
-
-
-
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 chat_log = []
@@ -17,26 +14,35 @@ def chatbot():
 
     return render_template("chatbot.html", chat_log=chat_log)
 
+@app.route("/reset", methods=["POST"])
+def reset():
+    global chat_log
+    chat_log = []
+    return redirect("/")
+
 def genera_risposta(testo):
     testo = testo.lower()
 
     if "ciao" in testo:
         return "💬 Ciao! Benvenuto nella Cantina Virtuosa. Come posso aiutarti? Ecco cosa posso fare per te:\n🔴 Vini rossi\n⚪ Vini bianchi\n🍷 Prenota una degustazione\nℹ️ Info e orari"
-    
+
     elif "rossi" in testo or "vino rosso" in testo:
         return "🍇 I nostri vini rossi:\n- Chianti Riserva\n- Nero d’Avola\n- Barbera del Monferrato"
-    
+
     elif "bianchi" in testo or "vino bianco" in testo:
         return "🍏 I nostri vini bianchi:\n- Falanghina\n- Chardonnay\n- Vermentino"
-    
+
     elif "prenotazione" in testo or "degustazione" in testo:
         return "📅 Per prenotare una degustazione, scrivi il giorno e l’orario che preferisci!"
-    
+
     elif "orari" in testo or "aperti" in testo or "info" in testo:
         return "🕒 Siamo aperti dal lunedì al sabato, dalle 10:00 alle 19:00."
 
     elif any(g in testo for g in ["oggi", "domani", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato", "domenica"]):
         return f"✅ Prenotazione ricevuta! Ti aspettiamo {testo} 🍷"
+
+    elif "grazie" in testo and any(parola in testo for parola in ["martedì", "lunedì", "domani", "ci vediamo", "a presto"]):
+        return "🙏 Grazie a te! A martedì, ti aspettiamo con piacere 🍷"
 
     elif "grazie" in testo:
         return "🙏 Grazie a te! A presto nella nostra cantina."
