@@ -1,20 +1,117 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8" />
-    <title>Chatbot</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Cantina Virtuosa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background-color: #7c0f0f;
+      color: white;
+      padding: 20px;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .chat-box {
+      padding: 20px;
+      height: 400px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .message {
+      padding: 10px 15px;
+      border-radius: 10px;
+      max-width: 80%;
+      line-height: 1.4;
+    }
+
+    .user {
+      align-self: flex-end;
+      background-color: #e0f7fa;
+      border: 1px solid #00acc1;
+    }
+
+    .bot {
+      align-self: flex-start;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+    }
+
+    form {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #7c0f0f;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #777;
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Assistente AI Cantina Virtuosa</h1>
-    <div>
-        {% for message in chat_log %}
-            <p><strong>{{ message['role'] }}:</strong> {{ message['text'] }}</p>
-        {% endfor %}
+
+  <div class="container">
+    <div class="header">🤖 Assistente AI Cantina Virtuosa</div>
+
+    <div class="chat-box" id="chat-box">
+      {% for message in chat_log %}
+        <div class="message {{ message['role'] }}">{{ message['role'] }}: {{ message['text'] }}</div>
+      {% endfor %}
     </div>
-    <form method="post">
-        <input type="text" name="user_input" placeholder="Scrivi un messaggio..." required />
-        <button type="submit">Invia</button>
+
+    <form action="/" method="post">
+      <input type="text" name="user_input" placeholder="Scrivi un messaggio..." autocomplete="off" required>
+      <button type="submit">Invia</button>
     </form>
+
+    <div class="footer">
+      Un progetto DEMO di Stefano Cocchieri
+    </div>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById('chat-box');
+    chatBox.scrollTop = chatBox.scrollHeight;
+  </script>
+
 </body>
 </html>
 
