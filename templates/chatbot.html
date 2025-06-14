@@ -1,1 +1,20 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <title>Chatbot</title>
+</head>
+<body>
+    <h1>Assistente AI Cantina Virtuosa</h1>
+    <div>
+        {% for message in chat_log %}
+            <p><strong>{{ message['role'] }}:</strong> {{ message['text'] }}</p>
+        {% endfor %}
+    </div>
+    <form method="post">
+        <input type="text" name="user_input" placeholder="Scrivi un messaggio..." required />
+        <button type="submit">Invia</button>
+    </form>
+</body>
+</html>
 
